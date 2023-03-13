@@ -1,5 +1,7 @@
 package com.springframework.beans.factory;
 
+import com.springframework.beans.BeansException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,15 +9,17 @@ import java.util.Map;
  * @author G
  * @create 2023-03-09 6:05 PM
  */
-public class BeanFactory {
-        //1. 定义一个Map用来存储bean，用HashMap查找速度快
-       private Map<String, Object> BeanMap = new  HashMap<>();
-        //2. 存储bean
-        public void registerBean(String name,Object bean){
-                BeanMap.put(name,bean);
-        }
-        //3. 获取bean
-        public Object getBean(String name){
-               return  BeanMap.get(name);
-        }
+public interface BeanFactory {
+   Object getBean(String name)throws BeansException;
+
+   /**
+    * 根据名称和类型查找bean
+    *
+    * @param name
+    * @param requiredType
+    * @param <T>
+    * @return
+    * @throws BeansException
+    */
+   <T> T getBean(String name, Class<T> requiredType) throws BeansException;
 }
